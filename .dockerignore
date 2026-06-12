@@ -1,0 +1,14 @@
+# Version control
+.git/
+
+# Build outputs
+bin/
+obj/
+
+# Publisher artifacts
+releases/
+build-releases.ps1
+
+# Docker config
+Dockerfile
+.dockerignore

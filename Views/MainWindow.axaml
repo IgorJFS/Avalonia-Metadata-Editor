@@ -1,0 +1,395 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Docs_Metadata_Editor.ViewModels"
+        xmlns:models="using:Docs_Metadata_Editor.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="700"
+        Width="850" Height="700"
+        MinWidth="800" MinHeight="650"
+        x:Class="Docs_Metadata_Editor.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Resume ATS Metadata Editor"
+        RequestedThemeVariant="Dark"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Styles>
+        <!-- Custom TextBox Styling -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#1e293b" />
+            <Setter Property="BorderBrush" Value="#475569" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="12,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="CaretBrush" Value="#6366f1" />
+        </Style>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#6366f1" />
+            <Setter Property="Background" Value="#1e293b" />
+        </Style>
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#94a3b8" />
+        </Style>
+        
+        <!-- Custom Label Styling -->
+        <Style Selector="Label.FormLabel">
+            <Setter Property="Foreground" Value="#94a3b8" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+        </Style>
+        
+        <!-- Action Buttons Styling -->
+        <Style Selector="Button.Primary">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#6366f1" />
+                    <GradientStop Offset="1" Color="#4f46e5" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.Primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#818cf8" />
+                    <GradientStop Offset="1" Color="#6366f1" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.Primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#334155" />
+            <Setter Property="Foreground" Value="#64748b" />
+        </Style>
+
+        <Style Selector="Button.Secondary">
+            <Setter Property="Background" Value="#334155" />
+            <Setter Property="Foreground" Value="#f8fafc" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderBrush" Value="#475569" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+        <Style Selector="Button.Secondary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#475569" />
+            <Setter Property="BorderBrush" Value="#64748b" />
+            <Setter Property="Foreground" Value="#f8fafc" />
+        </Style>
+
+        <Style Selector="Button.Teal">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#0d9488" />
+                    <GradientStop Offset="1" Color="#0f766e" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.Teal:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#14b8a6" />
+                    <GradientStop Offset="1" Color="#0d9488" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.Teal:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#334155" />
+            <Setter Property="Foreground" Value="#64748b" />
+        </Style>
+
+        <!-- Red Attention-Grabbing Buttons Styling -->
+        <Style Selector="Button.Red">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#ef4444" />
+                    <GradientStop Offset="1" Color="#dc2626" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.Red:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#f87171" />
+                    <GradientStop Offset="1" Color="#ef4444" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.Red:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#334155" />
+            <Setter Property="Foreground" Value="#64748b" />
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto, *, Auto" Background="#0f172a">
+        <!-- Row 0: Top Bar (File Loading and Save Options) -->
+        <Border Grid.Row="0" 
+                Background="#1e293b" 
+                BorderBrush="#334155" 
+                BorderThickness="0,0,0,1" 
+                Padding="16,12">
+            <Grid ColumnDefinitions="*, Auto">
+                <!-- Left Section: File Selector -->
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Button Content="Select PDF Resume" 
+                            Click="LoadFileButton_Click" 
+                            Classes="Red"/>
+                    
+                    <StackPanel VerticalAlignment="Center" Spacing="2">
+                        <TextBlock Text="{Binding FileName}" 
+                                   Foreground="White" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="14"/>
+                        <TextBlock Text="{Binding LoadedFilePath}" 
+                                   Foreground="#64748b" 
+                                   FontSize="11" 
+                                   IsVisible="{Binding IsFileLoaded}"
+                                   MaxWidth="350"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Right Section: Save Modes & Action -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" VerticalAlignment="Center">
+                    <!-- Save Modes Radio Buttons -->
+                    <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center" IsEnabled="{Binding IsFileLoaded}">
+                        <TextBlock Text="Save Mode:" 
+                                   Foreground="#94a3b8" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="13" 
+                                   FontWeight="SemiBold"/>
+                        
+                        <RadioButton GroupName="SaveMode" 
+                                     Content="Overwrite File" 
+                                     IsChecked="{Binding IsOverwriteMode}"
+                                     Foreground="White"
+                                     FontSize="13"/>
+                        
+                        <RadioButton GroupName="SaveMode" 
+                                     Content="Download Copy" 
+                                     IsChecked="{Binding IsDownloadMode}"
+                                     Foreground="White"
+                                     FontSize="13"/>
+                    </StackPanel>
+
+                    <!-- Save Action Button -->
+                    <Button Content="Save Metadata" 
+                            Click="SaveButton_Click" 
+                            IsEnabled="{Binding IsFileLoaded}"
+                            Classes="Primary"
+                            VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Row 1: Form Container or Empty State Placeholder -->
+        <ScrollViewer Grid.Row="1" Padding="24">
+            <Grid>
+                <!-- Empty State (Shown when no file is loaded) -->
+                <Border Background="#1e293b" 
+                        BorderBrush="#334155" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Padding="40" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        MaxWidth="550"
+                        IsVisible="{Binding !IsFileLoaded}">
+                    <StackPanel Spacing="16" HorizontalAlignment="Center">
+                        <TextBlock Text="📄" 
+                                   FontSize="64" 
+                                   HorizontalAlignment="Center" 
+                                   Foreground="#475569"/>
+                        <TextBlock Text="No PDF File Loaded" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   HorizontalAlignment="Center" 
+                                   Foreground="White"/>
+                        <TextBlock Text="Load your resume or CV PDF file using the 'Select PDF Resume' button in the top bar to inspect and optimize its metadata." 
+                                   TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Foreground="#94a3b8" 
+                                   FontSize="13.5"
+                                   LineHeight="20"/>
+                        <Button Content="Browse PDF File" 
+                                Click="LoadFileButton_Click" 
+                                Classes="Red" 
+                                HorizontalAlignment="Center"
+                                Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Metadata Form (Shown when file is loaded) -->
+                <Border Background="#1e293b" 
+                        BorderBrush="#334155" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Padding="24"
+                        MaxWidth="720"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        IsVisible="{Binding IsFileLoaded}">
+                    
+                    <StackPanel Spacing="18">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="ATS Metadata Properties" 
+                                       FontSize="18" 
+                                       FontWeight="Bold" 
+                                       Foreground="White"/>
+                            <TextBlock Text="Edit fields below to match the job description. Comma-separated keywords are heavily scanned by ATS filters." 
+                                       FontSize="12.5" 
+                                       Foreground="#94a3b8"/>
+                        </StackPanel>
+                        
+                        <Separator Background="#334155" Height="1" Margin="0,4,0,4"/>
+
+                        <!-- Title and Author Row -->
+                        <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
+                            <StackPanel Grid.Column="0">
+                                <Label Classes="FormLabel" Content="Target Job Title (Title)" Target="TitleInput"/>
+                                <TextBox x:Name="TitleInput" 
+                                         Text="{Binding Title, Mode=TwoWay}" 
+                                         PlaceholderText="e.g. Senior Backend Engineer"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <Label Classes="FormLabel" Content="Candidate Name (Author)" Target="AuthorInput"/>
+                                <TextBox x:Name="AuthorInput" 
+                                         Text="{Binding Author, Mode=TwoWay}" 
+                                         PlaceholderText="e.g. Jane Doe"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Subject -->
+                        <StackPanel>
+                            <Label Classes="FormLabel" Content="Subject (Core Expertise / Summary)" Target="SubjectInput"/>
+                            <TextBox x:Name="SubjectInput" 
+                                     Text="{Binding Subject, Mode=TwoWay}" 
+                                     PlaceholderText="e.g. Full-Stack Web Development, Microservices Architecture, Cloud Integration"/>
+                        </StackPanel>
+
+                        <!-- Keywords -->
+                        <StackPanel>
+                            <Label Classes="FormLabel" Content="Keywords / Skills Tags (Comma-separated)" Target="KeywordsInput"/>
+                            <TextBox x:Name="KeywordsInput" 
+                                     Text="{Binding Keywords, Mode=TwoWay}" 
+                                     PlaceholderText="e.g. C#, .NET Core, Web API, Docker, CI/CD, SQL Server, Unit Testing"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     Height="80"/>
+                        </StackPanel>
+
+                        <!-- Comments -->
+                        <StackPanel>
+                            <Label Classes="FormLabel" Content="Comments / Executive Summary" Target="CommentsInput"/>
+                            <TextBox x:Name="CommentsInput" 
+                                     Text="{Binding Comments, Mode=TwoWay}" 
+                                     PlaceholderText="e.g. Professional summary and cover details optimized for ATS parsers..."
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     Height="110"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Row 2: ATS Auto-Fill System Panel (Bottom Area) -->
+        <Border Grid.Row="2" 
+                Background="#0f172a" 
+                BorderBrush="#1e293b" 
+                BorderThickness="0,1,0,0" 
+                Padding="24,20">
+            <Border Background="#1e293b" 
+                    BorderBrush="#334155" 
+                    BorderThickness="1" 
+                    CornerRadius="8" 
+                    Padding="24,20" 
+                    MaxWidth="720"
+                    HorizontalAlignment="Stretch">
+                
+                <Grid RowDefinitions="Auto, Auto" RowSpacing="16" HorizontalAlignment="Stretch">
+                    <!-- Title/Description Row -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                        <StackPanel Spacing="6">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="⚡" Foreground="#eab308" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Text="ATS Keyword Optimization Auto-Fill" 
+                                           Foreground="White" 
+                                           FontWeight="Bold" 
+                                           FontSize="15"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Text="Select your target language and job profile template. This instantly injects optimized hard skills and summary fields." 
+                                       Foreground="#94a3b8" 
+                                       FontSize="12.5"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <!-- Selectors Row -->
+                    <Grid Grid.Row="1" ColumnDefinitions="*, *, Auto" ColumnSpacing="12">
+                        <!-- Language Selector -->
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <Label Classes="FormLabel" Content="Language" Target="LangSelector"/>
+                            <ComboBox x:Name="LangSelector"
+                                      ItemsSource="{Binding Languages}" 
+                                      SelectedItem="{Binding SelectedLanguage}"
+                                      HorizontalAlignment="Stretch"
+                                      Height="36"
+                                      IsEnabled="{Binding IsFileLoaded}"/>
+                        </StackPanel>
+                        
+                        <!-- Profile Selector -->
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <Label Classes="FormLabel" Content="Job Profile" Target="RoleSelector"/>
+                            <ComboBox x:Name="RoleSelector"
+                                      ItemsSource="{Binding FilteredProfiles}" 
+                                      SelectedItem="{Binding SelectedProfile}"
+                                      PlaceholderText="Choose role profile..."
+                                      HorizontalAlignment="Stretch"
+                                      Height="36"
+                                      IsEnabled="{Binding IsFileLoaded}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:AtsProfile">
+                                        <TextBlock Text="{Binding RoleName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- Action Button -->
+                        <Button Grid.Column="2" 
+                                Content="Auto-Fill Metadata" 
+                                Command="{Binding AutoFillCommand}" 
+                                IsEnabled="{Binding IsAutoFillEnabled}"
+                                Classes="Teal"
+                                VerticalAlignment="Bottom"
+                                Height="36"
+                                Margin="0,0,0,0"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>
