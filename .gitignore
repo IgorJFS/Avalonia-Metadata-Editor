@@ -1,6 +1,7 @@
 # Build outputs
 bin/
 obj/
+releases/
 
 # IDE / User settings
 .vs/
