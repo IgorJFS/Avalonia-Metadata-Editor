@@ -9,7 +9,7 @@
         MinWidth="800" MinHeight="650"
         x:Class="Docs_Metadata_Editor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/metadataEditor-logo.ico"
         Title="Resume ATS Metadata Editor"
         RequestedThemeVariant="Dark"
         WindowStartupLocation="CenterScreen">
