@@ -2,6 +2,7 @@
 bin/
 obj/
 releases/
+dist/
 
 # IDE / User settings
 .vs/
