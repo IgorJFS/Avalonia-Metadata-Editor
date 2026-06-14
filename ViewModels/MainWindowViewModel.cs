@@ -65,7 +65,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string[] Languages { get; } = new[] { "EN", "PT-BR" };
 
     [ObservableProperty]
-    private string _selectedLanguage = "EN";
+    private string _selectedLanguage = "PT-BR";
 
     // ATS Auto-Fill Profiles
     [ObservableProperty]
